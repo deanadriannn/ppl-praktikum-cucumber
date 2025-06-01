@@ -33,6 +33,12 @@ public class LoginSteps {
         driver.findElement(By.name("password")).sendKeys("admin123");
     }
 
+    @When("I enter invalid username or password")
+    public void i_enter_invalid_username_or_password() {
+        driver.findElement(By.name("username")).sendKeys("wronguser");
+        driver.findElement(By.name("password")).sendKeys("wrongpass");
+    }
+
     @And("I click the login button")
     public void i_click_the_login_button() {
         driver.findElement(By.xpath("//button[@type='submit' and contains(text(),'Login')]")).click();
@@ -46,6 +52,18 @@ public class LoginSteps {
 
         // Assert that the text is present
         assertTrue(driver.getPageSource().contains("Dasbor - Bendahara"));
+    }
+
+    @Then("I should see the alert message")
+    public void i_should_see_the_alert_message() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Wait for the specific <p> element containing the error message
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                By.tagName("p"), "Incorrect username or password, please try again!"));
+
+        // Assert that the error message is present
+        assertTrue(driver.getPageSource().contains("Incorrect username or password, please try again!"));
     }
 
     @After
