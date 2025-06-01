@@ -60,7 +60,7 @@ public class LoginSteps {
 
         // Wait for the specific <p> element containing the error message
         wait.until(ExpectedConditions.textToBePresentInElementLocated(
-                By.tagName("p"), "Incorrect username or password, please try again!"));
+                By.tagName("body"), "Incorrect username or password, please try again!"));
 
         // Assert that the error message is present
         assertTrue(driver.getPageSource().contains("Incorrect username or password, please try again!"));
